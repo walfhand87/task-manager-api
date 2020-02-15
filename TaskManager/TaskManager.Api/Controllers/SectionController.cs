@@ -1,64 +1,66 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using TaskManager.BuisinessLogic.Abstraction.Interfaces;
 using TaskManager.Shared.Common.DTOs;
-using TaskManager.Shared.Common.Enums;
 using TaskManager.Shared.Common.Models;
 
 namespace TaskManager.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class TableController : BaseController
+    public class SectionController : BaseController
     {
-        private readonly ITableService _tableService;
-
-        public TableController(ITableService tableService)
+        private readonly ISectionService _sectionService;
+        public SectionController(ISectionService sectionService)
         {
-            _tableService = tableService;
+            _sectionService = sectionService;
         }
 
         [HttpGet]
-        [ProducesResponseType(typeof(IEnumerable<TableDTO>), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(IEnumerable<SectionDTO>), (int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
         [ProducesResponseType((int)HttpStatusCode.NoContent)]
         [ProducesResponseType((int)HttpStatusCode.NotImplemented)]
         public IActionResult Get()
         {
-            var result = _tableService.Search();
+            var result = _sectionService.Search();
             return GenerateResult(result);
         }
         [HttpGet("{id:int}")]
-        [ProducesResponseType(typeof(TableDTO),(int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(SectionDTO), (int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
         [ProducesResponseType((int)HttpStatusCode.NoContent)]
         [ProducesResponseType((int)HttpStatusCode.NotImplemented)]
         public IActionResult Get(int id)
         {
-            var result = _tableService.Find(id);
+            var result = _sectionService.Find(id);
             return GenerateResult(result);
         }
 
         [HttpPost]
-        [ProducesResponseType(typeof(TableDTO), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(SectionDTO), (int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
         [ProducesResponseType((int)HttpStatusCode.NoContent)]
         [ProducesResponseType((int)HttpStatusCode.NotImplemented)]
-        public IActionResult Post([FromBody] TableDTO tableDTO)
+        public IActionResult Post([FromBody] SectionDTO tableDTO)
         {
-            var result = _tableService.Insert(tableDTO);
+            var result = _sectionService.Insert(tableDTO);
             return GenerateResult(result);
         }
 
         [HttpPut("{id:int}")]
-        [ProducesResponseType(typeof(TableDTO), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(SectionDTO), (int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
         [ProducesResponseType((int)HttpStatusCode.NoContent)]
         [ProducesResponseType((int)HttpStatusCode.NotImplemented)]
-        public IActionResult Put(int id, [FromBody] TableDTO tableDTO)
+        public IActionResult Put(int id, [FromBody] SectionDTO tableDTO)
         {
-            var result = _tableService.Update(tableDTO);
+            var result = _sectionService.Update(tableDTO);
             return GenerateResult(result);
         }
 
@@ -69,7 +71,7 @@ namespace TaskManager.Api.Controllers
         [ProducesResponseType((int)HttpStatusCode.NotImplemented)]
         public IActionResult Delete(int id)
         {
-            var result = _tableService.Delete(id);
+            var result = _sectionService.Delete(id);
             return GenerateResult(result);
         }
     }

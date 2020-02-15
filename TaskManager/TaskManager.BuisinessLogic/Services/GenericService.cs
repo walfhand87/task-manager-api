@@ -4,7 +4,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
 using TaskManager.BuisinessLogic.Abstraction.Interfaces;
 using TaskManager.Shared.Common.Enums;
 using TaskManager.Shared.Common.Interfaces.Services;
@@ -19,15 +18,15 @@ namespace TaskManager.BuisinessLogic.Services
         where TEntity : class
         where TRepository : IGenericRepository<TEntity>
     {
-        private readonly IUnitOfWork _unitOfWork;
-        private readonly IMapper _mapper;
+        protected readonly IUnitOfWork _unitOfWork;
+        protected readonly IMapper _mapper;
 
         public GenericService(IUnitOfWork unitOfWork, IMapper mapper)
         {
             _unitOfWork = unitOfWork;
             _mapper = mapper;
         }
-        public IServiceResult Delete(object id)
+        public virtual IServiceResult Delete(object id)
             => ExecuteAndHandleCommonExceptions(() =>
             {
                 using (_unitOfWork)
@@ -43,10 +42,10 @@ namespace TaskManager.BuisinessLogic.Services
                     bool success = result > 0;
                     return new ServiceResult(success ? ResultStatus.SUCCESS : ResultStatus.NOT_MODIFIED);
                 }
-                
+
             });
 
-        public IServiceResult<TDTO> Find(params Expression<Func<TDTO, bool>>[] predicates)
+        public virtual IServiceResult<TDTO> Find(params Expression<Func<TDTO, bool>>[] predicates)
             => ExecuteAndHandleCommonExceptions(() =>
             {
                 using (_unitOfWork)
@@ -58,10 +57,10 @@ namespace TaskManager.BuisinessLogic.Services
                     }
                     return new ServiceResult<TDTO>(_mapper.Map<TDTO>(data));
                 }
-                
+
             });
 
-        public IServiceResult<TDTO> Insert(TDTO dto)
+        public virtual IServiceResult<TDTO> Insert(TDTO dto)
             => ExecuteAndHandleCommonExceptions(() =>
             {
                 using (_unitOfWork)
@@ -73,10 +72,10 @@ namespace TaskManager.BuisinessLogic.Services
                     bool succes = result > 0;
                     return new ServiceResult<TDTO>(resDto, succes ? ResultStatus.SUCCESS : ResultStatus.ERROR);
                 }
-                
+
             });
 
-        public IServiceResult<IEnumerable<TDTO>> Search(params Expression<Func<TDTO, bool>>[] predicates)
+        public virtual IServiceResult<IEnumerable<TDTO>> Search(params Expression<Func<TDTO, bool>>[] predicates)
             => ExecuteAndHandleCommonExceptions(() =>
             {
                 using (_unitOfWork)
@@ -90,10 +89,10 @@ namespace TaskManager.BuisinessLogic.Services
                     }
                     return new ServiceResult<IEnumerable<TDTO>>(result);
                 }
-                
+
             });
 
-        public IServiceResult<TDTO> Update(TDTO dto)
+        public virtual IServiceResult<TDTO> Update(TDTO dto)
             => ExecuteAndHandleCommonExceptions(() =>
             {
                 using (_unitOfWork)
@@ -107,10 +106,25 @@ namespace TaskManager.BuisinessLogic.Services
 
                     return new ServiceResult<TDTO>(resDto, succes ? ResultStatus.SUCCESS : ResultStatus.ERROR);
                 }
-               
+
             });
 
-        protected Expression<Func<TEntity,bool>>[] MapPredicates<UDTO>(Expression<Func<UDTO,bool>>[] predicates)
+        public virtual IServiceResult<TDTO> Find(object id)
+            => ExecuteAndHandleCommonExceptions(() =>
+            {
+                using (_unitOfWork)
+                {
+                    var entity =_unitOfWork.GetRepository<TRepository>().Find(id);
+                    if(entity == null)
+                    {
+                        return new ServiceResult<TDTO>(ResultStatus.NO_RESULT);
+                    }
+
+                    return new ServiceResult<TDTO>(_mapper.Map<TDTO>(entity));
+                }
+            });
+
+        protected Expression<Func<TEntity, bool>>[] MapPredicates<UDTO>(Expression<Func<UDTO, bool>>[] predicates)
         {
             return predicates.Select(_mapper.Map<Expression<Func<TEntity, bool>>>).ToArray();
         }
@@ -122,7 +136,7 @@ namespace TaskManager.BuisinessLogic.Services
             {
                 return functionToExecute();
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 return new ServiceResult(ResultStatus.ERROR);
             }
@@ -139,5 +153,7 @@ namespace TaskManager.BuisinessLogic.Services
                 return new ServiceResult<UDTO>(ResultStatus.ERROR);
             }
         }
+
+
     }
 }

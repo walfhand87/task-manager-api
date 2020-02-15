@@ -7,7 +7,7 @@ using TaskManager.DataAccess.Abstraction.Interfaces.Repositories;
 using TaskManager.Shared.DataAccess.Abstraction;
 using TaskManager.Shared.DataAccess.EF.Repositories;
 
-namespace TaskManager.DataAccess.DbInMemory.Repositories
+namespace TaskManager.DataAccess.MsSql.Repositories
 {
     public class TableRepository : GenericRepository<Table>, ITableRepository
     {

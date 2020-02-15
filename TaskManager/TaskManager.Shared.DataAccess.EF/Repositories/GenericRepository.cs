@@ -6,6 +6,7 @@ using System.Linq.Expressions;
 using System.Text;
 using TaskManager.Shared.DataAccess.Abstraction;
 using TaskManager.Shared.DataAccess.Abstraction.Repositories;
+using TaskManager.Shared.DataAccess.EF.Extensions;
 
 namespace TaskManager.Shared.DataAccess.EF.Repositories
 {
@@ -54,14 +55,18 @@ namespace TaskManager.Shared.DataAccess.EF.Repositories
         public IQueryable<TEntity> SearchWithIncludes(Expression<Func<TEntity, object>>[] includeExpression, params Expression<Func<TEntity, bool>>[] predicates)
         {
             IQueryable<TEntity> query = Search(predicates);
-            query = includeExpression.Aggregate(query, (q, exp) => q.Include(exp));
+            foreach (var includeExp in includeExpression)
+            {
+                query = query.IncludeCore(includeExp);
+            }
             return query;
         }
 
         public TEntity Update(TEntity entity)
         {
-            var dbEntity = DbSet.Update(entity);
-            return dbEntity.Entity;
+            var dbEntity = DbSet.Attach(entity).Entity;
+            Context.Entry(entity).State = EntityState.Modified;
+            return dbEntity;
         }
     }
 }

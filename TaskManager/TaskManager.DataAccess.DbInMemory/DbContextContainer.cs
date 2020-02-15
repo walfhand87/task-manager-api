@@ -4,7 +4,7 @@ using System.Text;
 using Microsoft.EntityFrameworkCore;
 using TaskManager.Shared.DataAccess.Abstraction;
 
-namespace TaskManager.DataAccess.DbInMemory
+namespace TaskManager.DataAccess.MsSql
 {
     public class DbContextContainer : IDbContextContainer
     {

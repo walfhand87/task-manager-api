@@ -3,23 +3,21 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29709.97
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaskManager.Api", "TaskManager.Api\TaskManager.Api.csproj", "{3C01882F-44B7-4C6D-98DA-AFDFD186EE84}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TaskManager.Api", "TaskManager.Api\TaskManager.Api.csproj", "{3C01882F-44B7-4C6D-98DA-AFDFD186EE84}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaskManager.Shared.Common", "TaskManager.Shared.Common\TaskManager.Shared.Common.csproj", "{2BF5FE29-AB7D-47F8-916B-3298411166E1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TaskManager.Shared.Common", "TaskManager.Shared.Common\TaskManager.Shared.Common.csproj", "{2BF5FE29-AB7D-47F8-916B-3298411166E1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaskManager.Shared.DataAccess.Abstraction", "TaskManager.Shared.DataAccess.Abstraction\TaskManager.Shared.DataAccess.Abstraction.csproj", "{03558E4B-44DF-4BFC-A104-62C0B85EEB25}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TaskManager.Shared.DataAccess.Abstraction", "TaskManager.Shared.DataAccess.Abstraction\TaskManager.Shared.DataAccess.Abstraction.csproj", "{03558E4B-44DF-4BFC-A104-62C0B85EEB25}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaskManager.Shared.DataAccess.EF", "TaskManager.Shared.DataAccess.EF\TaskManager.Shared.DataAccess.EF.csproj", "{526ED3ED-1272-46BB-8ABA-77AEBA6563A6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TaskManager.Shared.DataAccess.EF", "TaskManager.Shared.DataAccess.EF\TaskManager.Shared.DataAccess.EF.csproj", "{526ED3ED-1272-46BB-8ABA-77AEBA6563A6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaskManager.BuisinessLogic.Abstraction", "TaskManager.BuisinessLogic.Abstraction\TaskManager.BuisinessLogic.Abstraction.csproj", "{7D5D6CEB-F56A-4251-8926-01097C9F583F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TaskManager.BuisinessLogic.Abstraction", "TaskManager.BuisinessLogic.Abstraction\TaskManager.BuisinessLogic.Abstraction.csproj", "{7D5D6CEB-F56A-4251-8926-01097C9F583F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaskManager.BuisinessLogic", "TaskManager.BuisinessLogic\TaskManager.BuisinessLogic.csproj", "{D396A88A-2F4D-47A1-B803-62B7094DF2C9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TaskManager.BuisinessLogic", "TaskManager.BuisinessLogic\TaskManager.BuisinessLogic.csproj", "{D396A88A-2F4D-47A1-B803-62B7094DF2C9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaskManager.DataAccess.Abstraction", "TaskManager.DataAccess.Abstraction\TaskManager.DataAccess.Abstraction.csproj", "{497E37C6-7B43-48A8-9E91-671D8CB2460F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TaskManager.DataAccess.Abstraction", "TaskManager.DataAccess.Abstraction\TaskManager.DataAccess.Abstraction.csproj", "{497E37C6-7B43-48A8-9E91-671D8CB2460F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaskManager.DataAccess.MsSql", "TaskManager.DataAccess.MsSql\TaskManager.DataAccess.MsSql.csproj", "{EB6311EA-BCF0-42E4-9057-08AA8DAD27B7}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaskManager.DataAccess.DbInMemory", "TaskManager.DataAccess.DbInMemory\TaskManager.DataAccess.DbInMemory.csproj", "{BA17E8EF-D045-4831-BE95-F94ECFB84760}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TaskManager.DataAccess.MsSql", "TaskManager.DataAccess.DbInMemory\TaskManager.DataAccess.MsSql.csproj", "{BA17E8EF-D045-4831-BE95-F94ECFB84760}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -55,10 +53,6 @@ Global
 		{497E37C6-7B43-48A8-9E91-671D8CB2460F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{497E37C6-7B43-48A8-9E91-671D8CB2460F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{497E37C6-7B43-48A8-9E91-671D8CB2460F}.Release|Any CPU.Build.0 = Release|Any CPU
-		{EB6311EA-BCF0-42E4-9057-08AA8DAD27B7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{EB6311EA-BCF0-42E4-9057-08AA8DAD27B7}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{EB6311EA-BCF0-42E4-9057-08AA8DAD27B7}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{EB6311EA-BCF0-42E4-9057-08AA8DAD27B7}.Release|Any CPU.Build.0 = Release|Any CPU
 		{BA17E8EF-D045-4831-BE95-F94ECFB84760}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{BA17E8EF-D045-4831-BE95-F94ECFB84760}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BA17E8EF-D045-4831-BE95-F94ECFB84760}.Release|Any CPU.ActiveCfg = Release|Any CPU

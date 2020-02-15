@@ -18,9 +18,9 @@ using TaskManager.BuisinessLogic;
 using TaskManager.BuisinessLogic.Abstraction.Interfaces;
 using TaskManager.BuisinessLogic.Services;
 using TaskManager.DataAccess.Abstraction.Interfaces.Repositories;
-using TaskManager.DataAccess.DbInMemory;
-using TaskManager.DataAccess.DbInMemory.Context;
-using TaskManager.DataAccess.DbInMemory.Repositories;
+using TaskManager.DataAccess.MsSql;
+using TaskManager.DataAccess.MsSql.Context;
+using TaskManager.DataAccess.MsSql.Repositories;
 using TaskManager.Shared.DataAccess.Abstraction;
 
 namespace TaskManager.Api
@@ -45,11 +45,18 @@ namespace TaskManager.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            //services.AddScoped<DbContext>(sp =>
+            //{
+            //    return new TaskManagerContext(new DbContextOptionsBuilder<TaskManagerContext>().UseInMemoryDatabase("TaskManagerDatabase")
+            //        .Options);
+            //});
+            services.AddDbContext<TaskManagerContext>(option => option.UseSqlServer(Configuration.GetConnectionString("TaskManagerContext")));
             services.AddScoped<DbContext>(sp =>
             {
-                return new TaskManagerContext(new DbContextOptionsBuilder<TaskManagerContext>().UseInMemoryDatabase("TaskManagerDatabase")
+                return new TaskManagerContext(new DbContextOptionsBuilder<TaskManagerContext>().UseSqlServer(Configuration.GetConnectionString("TaskManagerContext"))
                     .Options);
             });
+
             services.AddControllers();
             services.AddScoped<IDbContextContainer, DbContextContainer>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
@@ -58,6 +65,12 @@ namespace TaskManager.Api
             services.AddScoped<ISectionTypeRepository, SectionTypeRepository>();
             services.AddScoped<ITaskRepository, TaskRepository>();
             services.AddScoped<ITableService, TableService>();
+            services.AddScoped<ITaskService, TaskService>();
+            services.AddScoped<ISectionService, SectionService>();
+            services.AddScoped<ISectionTypeService, SectionTypeService>();
+            services.AddControllers().AddNewtonsoftJson(options =>
+            options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
+
             services.AddAutoMapper(cfg => { cfg.AddExpressionMapping(); }, GetAssemblyAutoMapper());
         }
 

@@ -12,6 +12,6 @@ namespace TaskManager.DataAccess.Abstraction.DBOs.Basics
         public int SectionTypeId { get; set; }
         public Table Table { get; set; }
         public SectionType SectionType { get; set;}
-        public IEnumerable<Task> Tasks { get; set; }
+        public ICollection<Task> Tasks { get; set; }
     }
 }

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using TaskManager.Shared.DataAccess.Abstraction;
 
-namespace TaskManager.DataAccess.DbInMemory
+namespace TaskManager.DataAccess.MsSql
 {
     public class UnitOfWork : IUnitOfWork
     {
@@ -14,6 +14,7 @@ namespace TaskManager.DataAccess.DbInMemory
         {
             _dbContextContainer = dbContextContainer;
             _serviceProvider = serviceProvider;
+            _dbContextContainer.CurrentDbContext.ChangeTracker.LazyLoadingEnabled = false;
         }
 
         public void Dispose()

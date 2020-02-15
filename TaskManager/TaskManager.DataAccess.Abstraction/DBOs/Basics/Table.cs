@@ -8,6 +8,7 @@ namespace TaskManager.DataAccess.Abstraction.DBOs.Basics
     {
         public int TableId { get; set; }
         public bool Locked { get; set; }
-        public IEnumerable<Section> Sections { get; set; }
+        public ICollection<Task> Tasks { get; set; }
+        public ICollection<Section> Sections { get; set; }
     }
 }

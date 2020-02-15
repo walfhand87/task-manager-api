@@ -9,6 +9,7 @@ namespace TaskManager.BuisinessLogic.Abstraction.Interfaces
     public interface IGenericService<TDTO> where TDTO:class
     {
         IServiceResult<TDTO> Find(params Expression<Func<TDTO, bool>>[] predicates);
+        IServiceResult<TDTO> Find(object id);
 
         IServiceResult<IEnumerable<TDTO>> Search(params Expression<Func<TDTO, bool>>[] predicates);
 
