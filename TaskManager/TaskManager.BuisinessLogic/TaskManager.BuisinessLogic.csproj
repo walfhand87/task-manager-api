@@ -4,4 +4,15 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="9.0.0" />
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="7.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\TaskManager.BuisinessLogic.Abstraction\TaskManager.BuisinessLogic.Abstraction.csproj" />
+    <ProjectReference Include="..\TaskManager.DataAccess.Abstraction\TaskManager.DataAccess.Abstraction.csproj" />
+    <ProjectReference Include="..\TaskManager.Shared.DataAccess.Abstraction\TaskManager.Shared.DataAccess.Abstraction.csproj" />
+  </ItemGroup>
+
 </Project>

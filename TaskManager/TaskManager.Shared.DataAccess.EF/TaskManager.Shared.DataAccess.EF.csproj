@@ -4,4 +4,8 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\TaskManager.Shared.DataAccess.Abstraction\TaskManager.Shared.DataAccess.Abstraction.csproj" />
+  </ItemGroup>
+
 </Project>
