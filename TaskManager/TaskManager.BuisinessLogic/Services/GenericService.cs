@@ -81,7 +81,7 @@ namespace TaskManager.BuisinessLogic.Services
                 using (_unitOfWork)
                 {
                     var mappedPredicate = MapPredicates(predicates);
-                    var query = _unitOfWork.GetRepository<TRepository>().Search(mappedPredicate).ProjectTo<TDTO>(_mapper.ConfigurationProvider);
+                    var query = _unitOfWork.GetRepository<TRepository>().Search(mappedPredicate).Select(x => _mapper.Map<TDTO>(x));
                     var result = query.ToList();
                     if (!result.Any())
                     {
@@ -124,6 +124,7 @@ namespace TaskManager.BuisinessLogic.Services
                 }
             });
 
+
         protected Expression<Func<TEntity, bool>>[] MapPredicates<UDTO>(Expression<Func<UDTO, bool>>[] predicates)
         {
             return predicates.Select(_mapper.Map<Expression<Func<TEntity, bool>>>).ToArray();
@@ -153,7 +154,6 @@ namespace TaskManager.BuisinessLogic.Services
                 return new ServiceResult<UDTO>(ResultStatus.ERROR);
             }
         }
-
 
     }
 }

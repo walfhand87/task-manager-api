@@ -13,6 +13,7 @@ namespace TaskManager.DataAccess.MsSql.Context
         public TaskManagerContext(DbContextOptions<TaskManagerContext> options)
             : base(options)
         {
+            
         }
 
 
@@ -44,8 +45,6 @@ namespace TaskManager.DataAccess.MsSql.Context
                 .WithMany(t => t.Tasks)
                 .HasForeignKey(t => t.TableId)
                 .OnDelete(DeleteBehavior.Restrict);
-
-
 
             modelBuilder.Entity<SectionType>()
                 .HasData(new SectionType() { SectionTypeId = 1,SectionTypeName = "TODO", Order = 10,IsDefault = true },

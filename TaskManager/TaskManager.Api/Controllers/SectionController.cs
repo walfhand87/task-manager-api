@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using TaskManager.BuisinessLogic.Abstraction.Interfaces;
 using TaskManager.Shared.Common.DTOs;
+using TaskManager.Shared.Common.DTOs.Details;
 using TaskManager.Shared.Common.Models;
 
 namespace TaskManager.Api.Controllers
@@ -22,45 +23,45 @@ namespace TaskManager.Api.Controllers
         }
 
         [HttpGet]
-        [ProducesResponseType(typeof(IEnumerable<SectionDTO>), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(IEnumerable<SectionDetailsDTO>), (int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
         [ProducesResponseType((int)HttpStatusCode.NoContent)]
         [ProducesResponseType((int)HttpStatusCode.NotImplemented)]
         public IActionResult Get()
         {
-            var result = _sectionService.Search();
+            var result = _sectionService.SearchWithInclude();
             return GenerateResult(result);
         }
         [HttpGet("{id:int}")]
-        [ProducesResponseType(typeof(SectionDTO), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(SectionDetailsDTO), (int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
         [ProducesResponseType((int)HttpStatusCode.NoContent)]
         [ProducesResponseType((int)HttpStatusCode.NotImplemented)]
         public IActionResult Get(int id)
         {
-            var result = _sectionService.Find(id);
+            var result = _sectionService.FindWithIncludes(s => s.SectionId == id);
             return GenerateResult(result);
         }
 
         [HttpPost]
-        [ProducesResponseType(typeof(SectionDTO), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(SectionDetailsDTO), (int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
         [ProducesResponseType((int)HttpStatusCode.NoContent)]
         [ProducesResponseType((int)HttpStatusCode.NotImplemented)]
-        public IActionResult Post([FromBody] SectionDTO tableDTO)
+        public IActionResult Post([FromBody] SectionDetailsDTO tableDTO)
         {
             var result = _sectionService.Insert(tableDTO);
             return GenerateResult(result);
         }
 
         [HttpPut("{id:int}")]
-        [ProducesResponseType(typeof(SectionDTO), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(SectionDetailsDTO), (int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
         [ProducesResponseType((int)HttpStatusCode.NoContent)]
         [ProducesResponseType((int)HttpStatusCode.NotImplemented)]
-        public IActionResult Put(int id, [FromBody] SectionDTO tableDTO)
+        public IActionResult Put(int id, [FromBody] SectionDetailsDTO tableDTO)
         {
-            var result = _sectionService.Update(tableDTO);
+            var result = _sectionService.Update(id,tableDTO);
             return GenerateResult(result);
         }
 

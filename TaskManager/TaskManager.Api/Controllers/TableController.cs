@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Net;
 using TaskManager.BuisinessLogic.Abstraction.Interfaces;
 using TaskManager.Shared.Common.DTOs;
+using TaskManager.Shared.Common.DTOs.Details;
 using TaskManager.Shared.Common.Enums;
 using TaskManager.Shared.Common.Models;
 
@@ -20,45 +21,45 @@ namespace TaskManager.Api.Controllers
         }
 
         [HttpGet]
-        [ProducesResponseType(typeof(IEnumerable<TableDTO>), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(IEnumerable<TableDetailsDTO>), (int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
         [ProducesResponseType((int)HttpStatusCode.NoContent)]
         [ProducesResponseType((int)HttpStatusCode.NotImplemented)]
         public IActionResult Get()
         {
-            var result = _tableService.Search();
+            var result = _tableService.SearchWithInclude();
             return GenerateResult(result);
         }
         [HttpGet("{id:int}")]
-        [ProducesResponseType(typeof(TableDTO),(int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(TableDetailsDTO),(int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
         [ProducesResponseType((int)HttpStatusCode.NoContent)]
         [ProducesResponseType((int)HttpStatusCode.NotImplemented)]
         public IActionResult Get(int id)
         {
-            var result = _tableService.Find(id);
+            var result = _tableService.FindWithIncludes(t => t.TableId == id);
             return GenerateResult(result);
         }
 
         [HttpPost]
-        [ProducesResponseType(typeof(TableDTO), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(TableDetailsDTO), (int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
         [ProducesResponseType((int)HttpStatusCode.NoContent)]
         [ProducesResponseType((int)HttpStatusCode.NotImplemented)]
-        public IActionResult Post([FromBody] TableDTO tableDTO)
+        public IActionResult Post([FromBody] TableDetailsDTO tableDTO)
         {
             var result = _tableService.Insert(tableDTO);
             return GenerateResult(result);
         }
 
         [HttpPut("{id:int}")]
-        [ProducesResponseType(typeof(TableDTO), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(TableDetailsDTO), (int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
         [ProducesResponseType((int)HttpStatusCode.NoContent)]
         [ProducesResponseType((int)HttpStatusCode.NotImplemented)]
-        public IActionResult Put(int id, [FromBody] TableDTO tableDTO)
+        public IActionResult Put(int id, [FromBody] TableDetailsDTO tableDTO)
         {
-            var result = _tableService.Update(tableDTO);
+            var result = _tableService.Update(id,tableDTO);
             return GenerateResult(result);
         }
 

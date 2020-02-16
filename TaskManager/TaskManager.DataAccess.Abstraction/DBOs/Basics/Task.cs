@@ -11,7 +11,6 @@ namespace TaskManager.DataAccess.Abstraction.DBOs.Basics
         public string Description { get; set; }
         public int SectionId { get; set; }
         public int TableId { get; set; }
-        public DateTime CreatedOn { get; set; }
         public DateTime? EndDate { get; set; }
 
         public Table Table { get; set; }

@@ -8,13 +8,14 @@ using TaskManager.BuisinessLogic.Abstraction.Interfaces;
 using TaskManager.DataAccess.Abstraction.DBOs.Basics;
 using TaskManager.DataAccess.Abstraction.Interfaces.Repositories;
 using TaskManager.Shared.Common.DTOs;
+using TaskManager.Shared.Common.DTOs.Details;
 using TaskManager.Shared.Common.Interfaces.Services;
 using TaskManager.Shared.Common.Models;
 using TaskManager.Shared.DataAccess.Abstraction;
 
 namespace TaskManager.BuisinessLogic.Services
 {
-    public class TableService : GenericService<TableDTO, Table, ITableRepository>, ITableService
+    public class TableService : GenericSearchWithIncludesService<TableDetailsDTO, Table, ITableRepository>, ITableService
     {
         private Expression<Func<Table, object>>[] includeExpression;
         public TableService(IUnitOfWork unitOfWork, IMapper mapper) : base(unitOfWork, mapper)
@@ -24,8 +25,23 @@ namespace TaskManager.BuisinessLogic.Services
                 t => t.Sections
             };
         }
+        private Expression<Func<Table, object>>[] IncludesBase => new Expression<Func<Table, object>>[]
+        {
+            t => t.Sections,
+            t => t.Tasks,
+        };
 
-        public override IServiceResult<TableDTO> Insert(TableDTO dto)
+
+        public IServiceResult<TableDetailsDTO> FindWithIncludes(params Expression<Func<TableDetailsDTO, bool>>[] predicates)
+        {
+            return FindWithIncludes(IncludesBase, predicates);
+        }
+        public IServiceResult<IEnumerable<TableDetailsDTO>> SearchWithInclude(params Expression<Func<TableDetailsDTO, bool>>[] predicates)
+        {
+            return SearchWithInclude(IncludesBase, predicates);
+        }
+
+        public override IServiceResult<TableDetailsDTO> Insert(TableDetailsDTO dto)
             => ExecuteAndHandleCommonExceptions(() =>
             {
                 using (_unitOfWork)
@@ -35,7 +51,7 @@ namespace TaskManager.BuisinessLogic.Services
 
                     if (!sectionTypes.Any())
                     {
-                        return new ServiceResult<TableDTO>(Shared.Common.Enums.ResultStatus.ERROR);
+                        return new ServiceResult<TableDetailsDTO>(Shared.Common.Enums.ResultStatus.ERROR);
                     }
 
                     foreach (SectionType sectionType in sectionTypes)
@@ -57,9 +73,24 @@ namespace TaskManager.BuisinessLogic.Services
                     var tableDboWithIncludes = _unitOfWork.GetRepository<ITableRepository>()
                     .SearchWithIncludes(includeExpression,t => t.TableId == tableDbo.TableId).FirstOrDefault();
 
-                    return new ServiceResult<TableDTO>(_mapper.Map<TableDTO>(tableDboWithIncludes));
+                    return new ServiceResult<TableDetailsDTO>(_mapper.Map<TableDetailsDTO>(tableDboWithIncludes));
                 }
             });
-    
+
+
+
+        public IServiceResult<TableDetailsDTO> Update(int id, TableDetailsDTO tableDetailsDTO)
+        {
+            if (tableDetailsDTO.TableId <= 0)
+            {
+                if (id <= 0)
+                {
+                    return new ServiceResult<TableDetailsDTO>(Shared.Common.Enums.ResultStatus.NOT_VALID);
+                }
+                tableDetailsDTO.TableId = id;
+            }
+
+            return base.Update(tableDetailsDTO);
         }
+    }
     }

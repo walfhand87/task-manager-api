@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using TaskManager.BuisinessLogic.Abstraction.Interfaces;
 using TaskManager.Shared.Common.DTOs;
+using TaskManager.Shared.Common.DTOs.Details;
 using TaskManager.Shared.Common.Models;
 
 namespace TaskManager.Api.Controllers
@@ -22,46 +23,46 @@ namespace TaskManager.Api.Controllers
         }
 
         [HttpGet]
-        [ProducesResponseType(typeof(IEnumerable<TaskDTO>), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(IEnumerable<TaskDetailsDTO>), (int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
         [ProducesResponseType((int)HttpStatusCode.NoContent)]
         [ProducesResponseType((int)HttpStatusCode.NotImplemented)]
         public IActionResult Get()
         {
-            var result = _taskService.Search();
+            var result = _taskService.SearchWithInclude();
             return GenerateResult(result);
         }
 
         [HttpGet("{id:int}")]
-        [ProducesResponseType(typeof(TaskDTO), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(TaskDetailsDTO), (int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
         [ProducesResponseType((int)HttpStatusCode.NoContent)]
         [ProducesResponseType((int)HttpStatusCode.NotImplemented)]
         public IActionResult Get(int id)
         {
-            var result = _taskService.Find(id);
+            var result = _taskService.FindWithIncludes(x => x.TaskId == id);
             return GenerateResult(result);
         }
 
         [HttpPost]
-        [ProducesResponseType(typeof(TaskDTO), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(TaskDetailsDTO), (int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
         [ProducesResponseType((int)HttpStatusCode.NoContent)]
         [ProducesResponseType((int)HttpStatusCode.NotImplemented)]
-        public IActionResult Post([FromBody] TaskDTO taskDTO)
+        public IActionResult Post([FromBody] TaskDetailsDTO taskDTO)
         {
             var result = _taskService.Insert(taskDTO);
             return GenerateResult(result);
         }
 
         [HttpPut("{id:int}")]
-        [ProducesResponseType(typeof(TableDTO), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(TaskDetailsDTO), (int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
         [ProducesResponseType((int)HttpStatusCode.NoContent)]
         [ProducesResponseType((int)HttpStatusCode.NotImplemented)]
-        public IActionResult Put(int id, [FromBody] TaskDTO taskDTO)
+        public IActionResult Put(int id, [FromBody] TaskDetailsDTO taskDTO)
         {
-            var result = _taskService.Update(taskDTO);
+            var result = _taskService.Update(id,taskDTO);
             return GenerateResult(result);
         }
 

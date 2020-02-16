@@ -7,9 +7,7 @@ namespace TaskManager.Shared.Common.DTOs
     public class TableDTO
     {
         public int TableId { get; set; }
+        public string Name { get; set; }
         public bool Locked { get; set; }
-
-        public IEnumerable<SectionDTO> Sections { get; set; }
-        public IEnumerable<TaskDTO> Tasks { get; set; }
     }
 }

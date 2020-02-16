@@ -48,7 +48,7 @@ namespace TaskManager.Shared.DataAccess.EF.Repositories
         public IQueryable<TEntity> Search(params Expression<Func<TEntity, bool>>[] predicates)
         {
             IQueryable<TEntity> query = DbSet;
-            query = predicates.Aggregate(query, (q, exp) => q.Where(exp));
+            query = predicates?.Aggregate(query, (q, exp) => q.Where(exp));
             return query;
         }
 
@@ -64,7 +64,16 @@ namespace TaskManager.Shared.DataAccess.EF.Repositories
 
         public TEntity Update(TEntity entity)
         {
-            var dbEntity = DbSet.Attach(entity).Entity;
+            TEntity dbEntity;
+            try
+            {
+                dbEntity = DbSet.Attach(entity).Entity;
+            }
+            catch
+            {
+                dbEntity = entity;
+            }
+            
             Context.Entry(entity).State = EntityState.Modified;
             return dbEntity;
         }
