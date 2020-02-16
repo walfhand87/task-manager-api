@@ -17,7 +17,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TaskManager.BuisinessLogic"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TaskManager.DataAccess.Abstraction", "TaskManager.DataAccess.Abstraction\TaskManager.DataAccess.Abstraction.csproj", "{497E37C6-7B43-48A8-9E91-671D8CB2460F}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TaskManager.DataAccess.MsSql", "TaskManager.DataAccess.DbInMemory\TaskManager.DataAccess.MsSql.csproj", "{BA17E8EF-D045-4831-BE95-F94ECFB84760}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TaskManager.DataAccess.MsSql", "TaskManager.DataAccess.MsSql\TaskManager.DataAccess.MsSql.csproj", "{BA17E8EF-D045-4831-BE95-F94ECFB84760}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

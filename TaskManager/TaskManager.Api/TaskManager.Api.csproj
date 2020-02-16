@@ -22,8 +22,9 @@
   <ItemGroup>
     <ProjectReference Include="..\TaskManager.BuisinessLogic.Abstraction\TaskManager.BuisinessLogic.Abstraction.csproj" />
     <ProjectReference Include="..\TaskManager.BuisinessLogic\TaskManager.BuisinessLogic.csproj" />
-    <ProjectReference Include="..\TaskManager.DataAccess.DbInMemory\TaskManager.DataAccess.MsSql.csproj" />
+    <ProjectReference Include="..\TaskManager.DataAccess.MsSql\TaskManager.DataAccess.MsSql.csproj" />
     <ProjectReference Include="..\TaskManager.Shared.DataAccess.Abstraction\TaskManager.Shared.DataAccess.Abstraction.csproj" />
+    <ProjectReference Include="..\TaskManager.Shared.DataAccess.EF\TaskManager.Shared.DataAccess.EF.csproj" />
   </ItemGroup>
 
 
